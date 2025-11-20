@@ -1,5 +1,5 @@
 # Базовый образ с Java
-FROM openjdk:21
+FROM openjdk:17
 
 # Устанавливаем рабочую директорию
 WORKDIR d:\_QA_Automation\_GIT\salary\
