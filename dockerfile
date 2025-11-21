@@ -18,8 +18,8 @@ RUN mvn package -DskipTests
 RUN cp target/*.jar app.jar
 
 # Открываем порт (укажите свой, например 8080)
-EXPOSE 3000
+# EXPOSE 3000
 
 # Команда запуска
-# CMD ["java", "-jar", "app.jar"]
-CMD java -jar app.jar --server.port=$PORT
+CMD ["java", "-jar", "app.jar"]
+
