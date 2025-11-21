@@ -14,7 +14,7 @@ src/main/resources/ (конфиги, свойства).
 
 dockerfile
 # Используем официальный образ с Maven и JDK
-FROM maven:3.9-jdk-17-eclipse-temurin
+FROM maven:3.9-jdk-17-eclipse-temurin as builder
 
 
 # Рабочая директория в контейнере
