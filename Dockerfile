@@ -1,14 +1,26 @@
-# Базовый образ с Java
-FROM openjdk:17
+# Используем официальный образ с Maven и JDK
+FROM maven:3.9-jdk-17-eclipse-temurin
 
-# Устанавливаем рабочую директорию
-WORKDIR d:\_QA_Automation\_GIT\salary\
 
-# Копируем jar-файл
-COPY target/salary-calc-0.0.1.jar /app.jar
+# Рабочая директория в контейнере
+WORKDIR /app
 
-# Открываем порт
+# Копируем pom.xml и загружаем зависимости (кешируется)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Копируем исходный код
+COPY src ./src
+
+# Собираем JAR (финальный артефакт)
+RUN mvn package -DskipTests
+
+# Переносим JAR в корневую директорию
+RUN cp target/*.jar app.jar
+
+
+# Открываем порт (укажите свой, например 8080)
 EXPOSE 8080
 
-# Команда для запуска
+# Команда запуска
 CMD ["java", "-jar", "app.jar"]
