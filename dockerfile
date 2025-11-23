@@ -21,5 +21,6 @@ RUN cp target/*.jar app.jar
 EXPOSE 10000
 
 # Команда запуска
-CMD ["java", "-jar", "app.jar"]
 
+#CMD ["java", "-jar", "app.jar"]
+CMD java -Dserver.port=$PORT -jar app.jar
