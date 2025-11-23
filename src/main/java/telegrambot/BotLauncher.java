@@ -20,9 +20,4 @@ public class BotLauncher {
             e.printStackTrace();
         }
     }
-    @GetMapping("/health")
-public String healthCheck() {
-    return "OK";
-}
-    
 }
