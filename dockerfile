@@ -1,8 +1,8 @@
 FROM radut/openjdk-21:latest
-
-USER root
-
-COPY target/salary-calc-0.0.1.jar app.jar
-
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn package -DskipTests
+RUN cp target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT java ${JAVA_OPTS:--XX:MaxRAMPercentage=90.0} -Dfile.encoding=UTF-8 -jar app.jar
+CMD ["java", "-jar", "app.jar"]
