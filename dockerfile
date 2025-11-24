@@ -1,26 +1,8 @@
-# Используем официальный образ с Maven и JDK
-FROM maven:3.9.4-eclipse-temurin-17 as build
+FROM radut/openjdk-21:latest
 
-# Рабочая директория в контейнере
-WORKDIR /app
+USER root
 
-# Копируем pom.xml и загружаем зависимости (кешируется)
-COPY pom.xml .
-RUN mvn dependency:go-offline
+COPY target/salary-calc-0.0.1.jar app.jar
 
-# Копируем исходный код
-COPY src ./src
-
-# Собираем JAR (финальный артефакт)
-RUN mvn package -DskipTests
-
-# Переносим JAR в корневую директорию
-RUN cp target/*.jar app.jar
-
-# Открываем порт (укажите свой, например 8080)
 EXPOSE 8080
-
-# Команда запуска
-
-#CMD ["java", "-jar", "app.jar"]
-CMD java -Dserver.port=$PORT -jar app.jar
+ENTRYPOINT java ${JAVA_OPTS:--XX:MaxRAMPercentage=90.0} -Dfile.encoding=UTF-8 -jar app.jar
