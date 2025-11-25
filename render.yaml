@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: app
-    port: 8080  # замените на порт вашего приложения
-    env: prod
-    
